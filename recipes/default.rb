@@ -1,3 +1,7 @@
+if platform_family?("rhel")
+  include_recipe "yum::repoforge"
+end
+
 package "monit"
 
 if platform?("ubuntu")
@@ -23,10 +27,21 @@ directory "/etc/monit/conf.d/" do
   recursive true
 end
 
-template "/etc/monit/monitrc" do
-  owner "root"
-  group "root"
-  mode 0700
-  source 'monitrc.erb'
-  notifies :restart, resources(:service => "monit"), :delayed
+if platform?("Ubuntu") 
+  template "/etc/monit/monitrc" do
+    owner "root"
+    group "root"
+    mode 0700
+    source 'monitrc.erb'
+    notifies :restart, resources(:service => "monit"), :delayed
+  end
+elsif platform_family?("rhel")
+  template "/etc/monit.conf" do
+    owner "root"
+    group "root"
+    mode 0700
+    source 'monitrc.erb'
+    notifies :restart, resources(:service => "monit"), :delayed
+  end       
 end
+  
