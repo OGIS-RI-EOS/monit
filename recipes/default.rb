@@ -31,7 +31,7 @@ if platform_family?("rhel")
     owner "root"
     group "root"
     mode 0700
-    source 'monitrc.erb'
+    source 'monit.conf.erb'
     notifies :restart, resources(:service => "monit"), :delayed
   end       
 else
