@@ -19,23 +19,14 @@ service "monit" do
   supports [:start, :restart, :stop]
 end
 
-directory "/etc/monit/conf.d/" do
-  owner  'root'
-  group 'root'
-  mode 0755
-  action :create
-  recursive true
-end
-
-if platform?("Ubuntu") 
-  template "/etc/monit/monitrc" do
-    owner "root"
-    group "root"
-    mode 0700
-    source 'monitrc.erb'
-    notifies :restart, resources(:service => "monit"), :delayed
+if platform_family?("rhel")
+  directory "/etc/monit.d/" do
+    owner  'root'
+    group 'root'
+    mode 0755
+    action :create
+    recursive true
   end
-elsif platform_family?("rhel")
   template "/etc/monit.conf" do
     owner "root"
     group "root"
@@ -43,5 +34,20 @@ elsif platform_family?("rhel")
     source 'monitrc.erb'
     notifies :restart, resources(:service => "monit"), :delayed
   end       
+else
+  # if platform?("Ubuntu") 
+  directory "/etc/monit/conf.d/" do
+    owner  'root'
+    group 'root'
+    mode 0755
+    action :create
+    recursive true
+  end
+  template "/etc/monit/monitrc" do
+    owner "root"
+    group "root"
+    mode 0700
+    source 'monitrc.erb'
+    notifies :restart, resources(:service => "monit"), :delayed
+  end
 end
-  

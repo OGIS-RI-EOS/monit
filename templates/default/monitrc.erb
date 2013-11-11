@@ -35,5 +35,8 @@ set httpd port <%= node[:monit][:port] %>
   pemfile <%= node[:monit][:cert] %>
 <% end %>
 
+<% if platform_family?("rhel") %>
+include /etc/monit.d/*.conf
+<% else %>
 include /etc/monit/conf.d/*.conf
-
+<% end %>
