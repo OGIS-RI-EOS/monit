@@ -35,4 +35,4 @@ set httpd port <%= node[:monit][:port] %>
   pemfile <%= node[:monit][:cert] %>
 <% end %>
 
-include <%= @node[:monit][:conf_dir] %>
+include <%= @node[:monit][:conf_dir] %>/*.conf
