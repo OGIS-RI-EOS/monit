@@ -22,5 +22,15 @@ default[:monit][:mailserver][:password_suffix] = nil
 default[:monit][:port] = 3737
 default[:monit][:address] = "localhost"
 default[:monit][:ssl] = false
-default[:monit][:cert] = "/etc/monit/monit.pem"
 default[:monit][:allow] = ["localhost"]
+
+case node['platform_family']
+when 'rhel', 'fedora'
+default[:monit][:monitrc] = "/etc/monit.conf"
+default[:monit][:conf_dir] = "/etc/monit.d"
+default[:monit][:cert] = "/var/cert/monit.pem"
+else
+default[:monit][:monitrc] = "/etc/monit/monitrc"
+default[:monit][:conf_dir] = "/etc/monit/conf.d"
+default[:monit][:cert] = "/etc/monit/monit.pem"
+end
