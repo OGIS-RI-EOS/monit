@@ -5,6 +5,14 @@ set daemon <%= @node[:monit][:poll_period] %>
 
 set logfile <%= @node[:monit][:logfile] %>
 
+<% if @node[:monit][:statefile] %>
+set statefile <%= @node[:monit][:statefile] %>
+<% end %>
+
+<% if @node[:monit][:idfile] %>
+set idfile <%= @node[:monit][:idfile] %>
+<% end %>
+
 set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:port] %>
 <% if @node[:monit][:mailserver][:username] %>
   username "<%= @node[:monit][:mailserver][:username] %>"

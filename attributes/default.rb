@@ -30,6 +30,8 @@ default[:monit][:monitrc] = "/etc/monit.conf"
 default[:monit][:conf_dir] = "/etc/monit.d"
 default[:monit][:eventqueue_basedir] = "/var/monit/events"
 default[:monit][:cert] = "/var/cert/monit.pem"
+default[:monit][:statefile] = "/var/monit/state"
+default[:monit][:idfile] = "/var/monit/id"
 else
 default[:monit][:monitrc] = "/etc/monit/monitrc"
 default[:monit][:conf_dir] = "/etc/monit/conf.d"
