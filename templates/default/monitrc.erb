@@ -5,6 +5,14 @@ set daemon <%= @node[:monit][:poll_period] %>
 
 set logfile <%= @node[:monit][:logfile] %>
 
+<% if @node[:monit][:statefile] %>
+set statefile <%= @node[:monit][:statefile] %>
+<% end %>
+
+<% if @node[:monit][:idfile] %>
+set idfile <%= @node[:monit][:idfile] %>
+<% end %>
+
 set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit][:mailserver][:port]}" if @node[:monit][:mailserver][:port] %>
 <% if @node[:monit][:mailserver][:username] %>
   username "<%= @node[:monit][:mailserver][:username] %>"
@@ -14,7 +22,7 @@ set mailserver <%= @node[:monit][:mailserver][:host] %><%= " port #{@node[:monit
 <% end %>
 
 set eventqueue
-    basedir /var/monit  # set the base directory where events will be stored
+    basedir <%= @node[:monit][:eventqueue_basedir] %>  # set the base directory where events will be stored
 #    slots 1000          # optionaly limit the queue size
 
 set mail-format { 
@@ -35,5 +43,4 @@ set httpd port <%= node[:monit][:port] %>
   pemfile <%= node[:monit][:cert] %>
 <% end %>
 
-include /etc/monit/conf.d/*.conf
-
+include <%= @node[:monit][:conf_dir] %>/*.conf

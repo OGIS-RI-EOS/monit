@@ -1,3 +1,7 @@
+if platform_family?("rhel")
+  include_recipe "yum::repoforge"
+end
+
 package "monit"
 
 if platform?("ubuntu")
@@ -15,7 +19,7 @@ service "monit" do
   supports [:start, :restart, :stop]
 end
 
-directory "/etc/monit/conf.d/" do
+directory node[:monit][:conf_dir] do
   owner  'root'
   group 'root'
   mode 0755
@@ -23,7 +27,7 @@ directory "/etc/monit/conf.d/" do
   recursive true
 end
 
-template "/etc/monit/monitrc" do
+template node[:monit][:monitrc] do
   owner "root"
   group "root"
   mode 0700
