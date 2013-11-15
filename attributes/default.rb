@@ -1,4 +1,4 @@
-default[:monit][:notify_email]          = "notify@example.com"
+default[:monit][:notify_email]          = nil # "notify@example.com"
 
 default[:monit][:logfile]               = 'syslog facility log_daemon'
 
