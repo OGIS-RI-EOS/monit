@@ -35,6 +35,7 @@ set mail-format {
 set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, ppid }
 <% end %>
 
+<% if @node[:monit][:httpd] == true %>
 set httpd port <%= node[:monit][:port] %>
   <%= "use address #{node[:monit][:address]}" if node[:monit][:address] %>
 <% node[:monit][:allow].each do |a| %>
@@ -43,6 +44,7 @@ set httpd port <%= node[:monit][:port] %>
 <% if node[:monit][:ssl] %>
   ssl enable
   pemfile <%= node[:monit][:cert] %>
+<% end %>
 <% end %>
 
 include <%= @node[:monit][:conf_dir] %>/*.conf
