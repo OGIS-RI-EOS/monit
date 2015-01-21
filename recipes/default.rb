@@ -1,5 +1,5 @@
 if platform_family?("rhel")
-  include_recipe "yum::repoforge"
+  include_recipe "yum-repoforge"
 end
 
 package "monit"

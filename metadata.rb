@@ -6,7 +6,6 @@ description      "Configures monit.  Originally based off the 37 Signals Cookboo
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.7"
 
-depends 'yum', '~> 2.3'
 depends 'yum-repoforge'
 depends "chef_handler"
 
