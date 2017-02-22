@@ -27,6 +27,14 @@ directory node[:monit][:conf_dir] do
   recursive true
 end
 
+directory node[:monit][:eventqueue][:basedir] do
+  owner  'root'
+  group 'root'
+  mode 0755
+  action :create
+  recursive true
+end
+
 template node[:monit][:monitrc] do
   owner "root"
   group "root"

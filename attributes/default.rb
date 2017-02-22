@@ -23,6 +23,7 @@ default[:monit][:port] = 3737
 default[:monit][:address] = "localhost"
 default[:monit][:ssl] = false
 default[:monit][:allow] = ["localhost"]
+default[:monit][:eventqueue][:basedir] = "/var/monit"
 
 case node['platform_family']
 when 'rhel', 'fedora'
